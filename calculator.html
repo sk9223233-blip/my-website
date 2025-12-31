@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>Satish's Calculator</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 20px; background: #f0f2f5; }
+        .calc-box { max-width: 300px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        input { width: 90%; height: 50px; font-size: 20px; text-align: right; margin-bottom: 10px; padding: 5px; border: 1px solid #ddd; border-radius: 5px; }
+        .buttons { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        button { height: 50px; font-size: 18px; cursor: pointer; border: none; background: #6c5ce7; color: white; border-radius: 5px; }
+        button:active { background: #4834d4; }
+    </style>
+</head>
+<body>
+    <div class="calc-box">
+        <h3>Calculator</h3>
+        <input type="text" id="result" disabled>
+        <div class="buttons">
+            <button onclick="clearRes()">C</button>
+            <button onclick="addVal('/')">/</button>
+            <button onclick="addVal('*')">x</button>
+            <button onclick="back()">←</button>
+            <button onclick="addVal('7')">7</button>
+            <button onclick="addVal('8')">8</button>
+            <button onclick="addVal('9')">9</button>
+            <button onclick="addVal('-')">-</button>
+            <button onclick="addVal('4')">4</button>
+            <button onclick="addVal('5')">5</button>
+            <button onclick="addVal('6')">6</button>
+            <button onclick="addVal('+')">+</button>
+            <button onclick="addVal('1')">1</button>
+            <button onclick="addVal('2')">2</button>
+            <button onclick="addVal('3')">3</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="addVal('0')" style="grid-column: span 2;">0</button>
+            <button onclick="addVal('.')">.</button>
+        </div>
+        <br>
+        <a href="index.html" style="text-decoration: none; color: #6c5ce7;">← वापस जाएं</a>
+    </div>
+
+    <script>
+        let res = document.getElementById('result');
+        function addVal(v) { res.value += v; }
+        function clearRes() { res.value = ''; }
+        function back() { res.value = res.value.slice(0, -1); }
+        function calculate() { try { res.value = eval(res.value); } catch { res.value = 'Error'; } }
+    </script>
+</body>
+</html>
