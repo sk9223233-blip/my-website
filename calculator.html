@@ -1,25 +1,87 @@
-<h2 style="text-align:center;">Advanced Calculator</h2>
-<div style="text-align:center; font-size:18px; max-width:500px; margin:auto;">
-  <input id="a" type="number" placeholder="First Number" style="width:100%; font-size:20px; padding:10px; margin:5px 0;">
-  <input id="b" type="number" placeholder="Second Number" style="width:100%; font-size:20px; padding:10px; margin:5px 0;">
-  <br>
-  <button onclick="add()" style="width:45%; font-size:20px; padding:10px; margin:5px;">Add +</button>
-  <button onclick="sub()" style="width:45%; font-size:20px; padding:10px; margin:5px;">Subtract -</button>
-  <br>
-  <button onclick="mul()" style="width:45%; font-size:20px; padding:10px; margin:5px;">Multiply ×</button>
-  <button onclick="div()" style="width:45%; font-size:20px; padding:10px; margin:5px;">Divide ÷</button>
-  <br>
-  <button onclick="clearResult()" style="width:95%; font-size:20px; padding:10px; margin:5px; background-color:red; color:white;">Clear</button>
-  <p id="r" style="font-size:22px; font-weight:bold; margin-top:10px;"></p>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Satish's Scientific Calculator</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        .calc-container { background: #34495e; padding: 20px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 320px; }
+        #display { width: 100%; height: 60px; font-size: 24px; text-align: right; margin-bottom: 15px; border: none; border-radius: 10px; padding: 10px; background: #ecf0f1; color: #2c3e50; box-sizing: border-box; }
+        .btn-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        button { height: 50px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold; cursor: pointer; transition: 0.2s; background: #7f8c8d; color: white; }
+        button:active { transform: scale(0.9); }
+        .op-btn { background: #e67e22; }
+        .sci-btn { background: #9b59b6; }
+        .eq-btn { background: #27ae60; grid-column: span 2; }
+        .ac-btn { background: #e74c3c; }
+        .back-home { display: block; text-align: center; margin-top: 15px; color: #bdc3c7; text-decoration: none; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="calc-container">
+    <h3 style="color: white; text-align: center; margin-top: 0;">Scientific Calc</h3>
+    <input type="text" id="display" readonly>
+    
+    <div class="btn-grid">
+        <button class="sci-btn" onclick="sci('sin')">sin</button>
+        <button class="sci-btn" onclick="sci('cos')">cos</button>
+        <button class="sci-btn" onclick="sci('tan')">tan</button>
+        <button class="ac-btn" onclick="clearDisplay()">AC</button>
+        
+        <button class="sci-btn" onclick="sci('log')">log</button>
+        <button class="sci-btn" onclick="sci('sqrt')">√</button>
+        <button class="sci-btn" onclick="sci('pow')">x²</button>
+        <button class="op-btn" onclick="add('/')">/</button>
+
+        <button onclick="add('7')">7</button>
+        <button onclick="add('8')">8</button>
+        <button onclick="add('9')">9</button>
+        <button class="op-btn" onclick="add('*')">×</button>
+
+        <button onclick="add('4')">4</button>
+        <button onclick="add('5')">5</button>
+        <button onclick="add('6')">6</button>
+        <button class="op-btn" onclick="add('-')">-</button>
+
+        <button onclick="add('1')">1</button>
+        <button onclick="add('2')">2</button>
+        <button onclick="add('3')">3</button>
+        <button class="op-btn" onclick="add('+')">+</button>
+
+        <button onclick="add('0')">0</button>
+        <button onclick="add('.')">.</button>
+        <button class="eq-btn" onclick="calculate()">=</button>
+    </div>
+    
+    <a href="index.html" class="back-home">← वापस मुख्य पेज पर जाएँ</a>
 </div>
 
 <script>
-function add(){r.innerHTML = Number(a.value) + Number(b.value);}
-function sub(){r.innerHTML = Number(a.value) - Number(b.value);}
-function mul(){r.innerHTML = Number(a.value) * Number(b.value);}
-function div(){ 
-  if(b.value == 0){r.innerHTML="Error: Divide by 0"} 
-  else {r.innerHTML = Number(a.value) / Number(b.value);}
-}
-function clearResult(){ a.value=""; b.value=""; r.innerHTML=""; }
+    let display = document.getElementById('display');
+
+    function add(val) { display.value += val; }
+    function clearDisplay() { display.value = ''; }
+    
+    function calculate() {
+        try { display.value = eval(display.value); }
+        catch { display.value = 'Error'; }
+    }
+
+    function sci(type) {
+        let v = parseFloat(display.value);
+        if (isNaN(v)) { display.value = "Error"; return; }
+        
+        if (type === 'sin') display.value = Math.sin(v * Math.PI / 180).toFixed(4);
+        if (type === 'cos') display.value = Math.cos(v * Math.PI / 180).toFixed(4);
+        if (type === 'tan') display.value = Math.tan(v * Math.PI / 180).toFixed(4);
+        if (type === 'log') display.value = Math.log10(v).toFixed(4);
+        if (type === 'sqrt') display.value = Math.sqrt(v).toFixed(4);
+        if (type === 'pow') display.value = Math.pow(v, 2);
+    }
 </script>
+
+</body>
+</html>
+
